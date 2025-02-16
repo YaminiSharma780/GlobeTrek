@@ -1,7 +1,17 @@
-import React from "react";
-import data from "../data";
+import React, { useState, useEffect } from "react";
+// import data from "../data";
 import CountryCard from "./CountryCard";
+
 export default function CountriesList({ query }) {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((res) => res.json())
+      .then((myData) => {
+        setData(myData);
+      });
+  }, []);
+
   return (
     <>
       <div className="countries-container">
