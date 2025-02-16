@@ -1,18 +1,18 @@
 import React from "react";
-export default function CountryCard({ name }) {
+export default function CountryCard({ name, flag, population, region, capital }) {
   return (
-    <a className="country-card" href="/country/html?name=Barbados">
-      <img src="https://flagcdn.com/bb.svg" alt="Barbados Flag" />
+    <a className="country-card" href={`/country/html?name=${name}`}>
+      <img src={flag} alt={name} />
       <div className="card-text">
         <h3 className="card-title">{name}</h3>
         <p>
-          <b>Population:</b>2,87,371
+          <b>Population:</b>{population}
         </p>
         <p>
-          <b>Region:</b>Americas
+          <b>Region:</b>{region}
         </p>
         <p>
-          <b>Capital:</b>BridgeTown
+          <b>Capital:</b>{capital}
         </p>
       </div>
     </a>
