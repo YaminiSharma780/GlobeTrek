@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/CountryDetail.css";
 import CountriesList from "./CountriesList";
+import LoadingComponent from "./LoadingComponent";
 
 export default function CountryDetail() {
   const navigate = useNavigate();
@@ -11,7 +12,9 @@ export default function CountryDetail() {
 
   const countryName = new URLSearchParams(location.search).get("name");
   const [countryData, setCountryData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true);
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
       .then((res) => res.json())
       .then(([data]) => {
@@ -34,10 +37,11 @@ export default function CountryDetail() {
           flagSrc: data.flags.svg,
           flagAlt: data.flags.alt,
         });
+        setIsLoading(false);
       });
   }, []);
-  return countryData == null ? (
-    "loading....."
+  return isLoading ? (
+    <LoadingComponent />
   ) : (
     <main>
       <div className="country-details-container">
