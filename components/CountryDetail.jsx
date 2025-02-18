@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
@@ -22,7 +22,7 @@ export default function CountryDetail() {
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
       .then((res) => res.json())
       .then(([data]) => {
-        console.log(data);
+        console.log(`${data.cca3} -->> ${data.borders}`);
         setCountryData({
           name: data.name.common,
           nativeName: Object.values(data.name.nativeName)[0].common,
@@ -35,20 +35,31 @@ export default function CountryDetail() {
             .map((currency) => currency.name)
             .join(", "),
           languages: Object.values(data.languages)[0],
-          borders: data.borders
-            ? data.borders.join(", ")
-            : "No Border Countries",
+          borders: data.borders || [],
           flagSrc: data.flags.svg,
           flagAlt: data.flags.alt,
         });
         setIsLoading(false);
+        // map won't work for undefined so provided []
+        if (!data.borders) {
+          data.borders = [];
+        }
+        // map returning all borders promises therefore used Promise.all()
+        Promise.all(
+          data.borders.map((border) => {
+            return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
+              .then((res) => res.json())
+              .then(([borderCountry]) => borderCountry.name.common);
+          })
+        ).then((borders) => {
+          setCountryData((prevState) => ({ ...prevState, borders }));
+        });
       })
-      .catch((error) => {
-        console.log(error);
-        setIsLoading(false);
-        setIsFound(false);
+      .catch((err) => {
+        console.log(err);
+        setNotFound(true);
       });
-  }, []);
+  }, [countryName]);
   return isLoading ? (
     <div className="country-details-container">
       <span onClick={routeChange} className="back-button">
@@ -100,9 +111,17 @@ export default function CountryDetail() {
                 <span className="languages"></span>
               </p>
             </div>
-            <div className="border-countries">
-              <b>Border Countries: {countryData.borders} </b>&nbsp;
-            </div>
+            {Array.isArray(countryData.borders) &&
+              countryData.borders.length > 0 && (
+                <div className="border-countries">
+                  <b>Border Countries: </b>&nbsp;
+                  {countryData.borders.map((border) => (
+                    <Link key={border} to={`/${border}`}>
+                      {border}
+                    </Link>
+                  ))}
+                </div>
+              )}
           </div>
         </div>
       </div>

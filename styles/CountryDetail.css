@@ -19,8 +19,10 @@
 }
 
 .country-details img {
-    width: 40%;
-    border: 1px solid #ddd;
+    width: 400px;
+    border: none;
+    height: 300px;
+    object-fit: fill;
 }
 
 .details-text {
@@ -64,8 +66,10 @@
     }
 
     .country-details img {
-        width: 100%;
-        max-width: 400px;
+        width: 400px;
+        border: none;
+        height: 300px;
+        object-fit:contain;
     }
 
 }

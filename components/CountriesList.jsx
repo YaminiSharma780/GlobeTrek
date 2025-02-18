@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import CountryCard from "./CountryCard";
 import LoadingComponent from "./LoadingComponent";
+import ErrorComponent from "./ErrorComponent";
 
 export default function CountriesList({ query }) {
-  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFound, setIsFound] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -13,12 +15,17 @@ export default function CountriesList({ query }) {
       .then((myData) => {
         setData(myData);
         setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        setIsFound(false);
       });
   }, []);
 
   return isLoading ? (
     <LoadingComponent />
-  ) : (
+  ) : isFound ? (
     <div className="countries-container">
       {data
         .filter((country) => country.name.common.toLowerCase().includes(query))
@@ -35,5 +42,7 @@ export default function CountriesList({ query }) {
           );
         })}
     </div>
+  ) : (
+    <ErrorComponent />
   );
 }

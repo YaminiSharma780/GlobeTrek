@@ -3,13 +3,8 @@ export default function ErrorComponent() {
   return (
     <>
       <div className="error-component-div">
-        <div className="error-image-div">
-          <img
-            className="error-image"
-            src="https://i.ibb.co/v30JLYr/Group-192-2.png"
-            alt="error image"
-          />
-          <i id="flag-icon" className="fa-solid fa-flag fa-5x" />
+        <div className="error-div">
+          <i id="flag-icon" className="fa-solid fa-sailboat fa-5x" />
         </div>
         <div className="error-text-div">
           <h1 className="error-heading">
