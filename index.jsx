@@ -8,12 +8,11 @@ import Error from "./components/Error";
 const root = createRoot(document.querySelector("#root"));
 root.render(
   <>
-    {/* <Header /> */}
     <Router>
       <Routes>
         <Route path="/" element={<App />} errorElement={<Error />}>
           <Route path="/" element={<Home />} />
-          <Route path={`/country`} element={<CountryDetail />} />
+          <Route path="/:country" element={<CountryDetail />} />
         </Route>
       </Routes>
     </Router>

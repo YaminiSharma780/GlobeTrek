@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles/CountryDetail.css";
-import CountriesList from "./CountriesList";
 import LoadingComponent from "./LoadingComponent";
+import ErrorComponent from "./ErrorComponent";
 
 export default function CountryDetail() {
   const navigate = useNavigate();
@@ -10,9 +10,13 @@ export default function CountryDetail() {
     navigate("/");
   };
 
-  const countryName = new URLSearchParams(location.search).get("name");
+  const params = useParams();
+  const countryName = params.country;
+
   const [countryData, setCountryData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [isFound, setIsFound] = useState(true);
+
   useEffect(() => {
     setIsLoading(true);
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
@@ -38,11 +42,21 @@ export default function CountryDetail() {
           flagAlt: data.flags.alt,
         });
         setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        setIsFound(false);
       });
   }, []);
   return isLoading ? (
-    <LoadingComponent />
-  ) : (
+    <div className="country-details-container">
+      <span onClick={routeChange} className="back-button">
+        <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
+      </span>
+      <LoadingComponent />
+    </div>
+  ) : isFound ? (
     <main>
       <div className="country-details-container">
         <span onClick={routeChange} className="back-button">
@@ -93,5 +107,12 @@ export default function CountryDetail() {
         </div>
       </div>
     </main>
+  ) : (
+    <div className="country-details-container">
+      <span onClick={routeChange} className="back-button">
+        <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
+      </span>
+      <ErrorComponent />
+    </div>
   );
 }

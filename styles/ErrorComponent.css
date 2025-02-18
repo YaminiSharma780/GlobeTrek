@@ -1,0 +1,47 @@
+.error-component-div {
+    display: grid;
+    margin-inline: 100px;
+}
+
+.error-image-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-image {
+    height: 300px;
+    width: 400px;
+}
+
+#flag-icon {
+    display: none;
+}
+
+.error-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-text-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-text-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(max-width: 768px) {
+    .error-image {
+        display: none;
+    }
+
+    #flag-icon {
+        display: block;
+    }
+}
