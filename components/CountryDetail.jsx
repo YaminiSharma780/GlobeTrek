@@ -57,12 +57,13 @@ export default function CountryDetail() {
       })
       .catch((err) => {
         console.log(err);
-        setNotFound(true);
+        setIsLoading(false);
+        setIsFound(false);
       });
   }, [countryName]);
   return isLoading ? (
     <div className="country-details-container">
-      <span onClick={routeChange} className="back-button">
+      <span onClick={() => history.back()} className="back-button">
         <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
       </span>
       <LoadingComponent />
@@ -70,7 +71,7 @@ export default function CountryDetail() {
   ) : isFound ? (
     <main>
       <div className="country-details-container">
-        <span onClick={routeChange} className="back-button">
+        <span onClick={() => history.back()} className="back-button">
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
         <div className="country-details">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CountryCard from "./CountryCard";
-import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
+import CountriesListShimmer from "./CountriesListShimmer";
 
 export default function CountriesList({ query }) {
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ export default function CountriesList({ query }) {
   }, []);
 
   return isLoading ? (
-    <LoadingComponent />
+    <CountriesListShimmer />
   ) : isFound ? (
     <div className="countries-container">
       {data
