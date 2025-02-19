@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
+import { ThemeContext } from "../contexts/ThemeContext";
 
 export default function CountryDetail() {
-  const [isDark] = useOutletContext();
+  const [isDark] = useContext(ThemeContext)
   const navigate = useNavigate();
   const routeChange = () => {
     navigate("/");

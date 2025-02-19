@@ -25,10 +25,11 @@ header.dark {
     --elements-color: hsl(209, 23%, 22%);
     --shimmer-color-one: hsl(209, 23%, 22%);
     --shimmer-color-two: hsl(207, 26%, 17%);
-}
+}   
 
 main {
     padding: 24px;
+    min-height: calc(100vh - 72px);
 }
 
 a {
@@ -42,6 +43,7 @@ a {
     background-color: var(--elements-color);
     position: sticky;
     top: 0px;
+    z-index: 1;
 }
 
 .header-content {
