@@ -10,12 +10,16 @@ body {
     font-family: Nunito, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    --shimmer-color-one: #eee;
+    --shimmer-color-two: #fafafa;
 }
 
 body.dark {
     --background-color: hsl(207, 26%, 17%);
     --text-color: white;
     --elements-color: hsl(209, 23%, 22%);
+    --shimmer-color-one: hsl(209, 23%, 22%);
+    --shimmer-color-two: hsl(207, 26%, 17%);
 }
 
 main {
@@ -51,6 +55,14 @@ a {
     cursor: pointer;
 }
 
+#moon-icon {
+    display: block;
+}
+
+#sun-icon {
+    display: none;
+}
+
 .countries-container {
     max-width: 1200px;
     margin-top: 16px;
@@ -76,7 +88,7 @@ a {
     height: 364px;
     border: 1px solid rgb(172, 169, 169);
     pointer-events: none;
-    background: linear-gradient(-45deg, #eee 40%, #fafafa 50%, #eee 60%);
+    background: linear-gradient(-45deg, var(--shimmer-color-one) 40%, var(--shimmer-color-two) 50%, var(--shimmer-color-one) 60%);
     background-size: 300%;
     background-position-x: 100%;
     animation: shimmer 0.5s infinite linear;

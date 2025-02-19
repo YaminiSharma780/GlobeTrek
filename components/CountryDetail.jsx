@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
@@ -13,47 +13,60 @@ export default function CountryDetail() {
   const params = useParams();
   const countryName = params.country;
 
+  const { state } = useLocation();
+
   const [countryData, setCountryData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isFound, setIsFound] = useState(true);
 
+  function updateCountryData(data) {
+    setCountryData({
+      name: data.name.common,
+      nativeName: Object.values(data.name.nativeName)[0].common,
+      population: data.population.toLocaleString("en-IN"),
+      region: data.region,
+      subregion: data.subregion,
+      capital: data.capital,
+      tld: data.tld,
+      currencies: Object.values(data.currencies)
+        .map((currency) => currency.name)
+        .join(", "),
+      languages: Object.values(data.languages)[0],
+      borders: data.borders || [],
+      flagSrc: data.flags.svg,
+      flagAlt: data.flags.alt,
+    });
+    setIsLoading(false);
+    // map won't work for undefined so provided []
+    if (!data.borders) {
+      data.borders = [];
+    }
+    // map returning all borders promises therefore used Promise.all()
+    Promise.all(
+      data.borders.map((border) => {
+        return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
+          .then((res) => res.json())
+          .then(([borderCountry]) => borderCountry.name.common);
+      })
+    ).then((borders) => {
+      setTimeout(() => {
+        setCountryData((prevState) => ({ ...prevState, borders }));
+      });
+    });
+  }
+
   useEffect(() => {
     setIsLoading(true);
+
+    if (state) {
+      updateCountryData(state);
+      return;
+    }
+
     fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`)
       .then((res) => res.json())
       .then(([data]) => {
-        console.log(`${data.cca3} -->> ${data.borders}`);
-        setCountryData({
-          name: data.name.common,
-          nativeName: Object.values(data.name.nativeName)[0].common,
-          population: data.population.toLocaleString("en-IN"),
-          region: data.region,
-          subregion: data.subregion,
-          capital: data.capital,
-          tld: data.tld,
-          currencies: Object.values(data.currencies)
-            .map((currency) => currency.name)
-            .join(", "),
-          languages: Object.values(data.languages)[0],
-          borders: data.borders || [],
-          flagSrc: data.flags.svg,
-          flagAlt: data.flags.alt,
-        });
-        setIsLoading(false);
-        // map won't work for undefined so provided []
-        if (!data.borders) {
-          data.borders = [];
-        }
-        // map returning all borders promises therefore used Promise.all()
-        Promise.all(
-          data.borders.map((border) => {
-            return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
-              .then((res) => res.json())
-              .then(([borderCountry]) => borderCountry.name.common);
-          })
-        ).then((borders) => {
-          setCountryData((prevState) => ({ ...prevState, borders }));
-        });
+        updateCountryData(data);
       })
       .catch((err) => {
         console.log(err);

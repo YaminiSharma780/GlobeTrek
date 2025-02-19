@@ -1,5 +1,3 @@
-import { ShimmerDiv } from "shimmer-effects-react";
-
 export default function CountriesListShimmer() {
   return (
     <div className="countries-container">
