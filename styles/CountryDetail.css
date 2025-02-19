@@ -10,6 +10,13 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.back-button.dark {
+    padding: 6px 24px;
+    box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: hsl(204, 21%, 23%);;
+}
 
 .country-details {
     display: flex;

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
 
 export default function CountryDetail() {
+  const [isDark] = useOutletContext();
   const navigate = useNavigate();
   const routeChange = () => {
     navigate("/");
@@ -76,15 +77,15 @@ export default function CountryDetail() {
   }, [countryName]);
   return isLoading ? (
     <div className="country-details-container">
-      <span onClick={() => history.back()} className="back-button">
+      <span onClick={() => history.back()} className={`back-button ${isDark ? "dark" : ""}`}>
         <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
       </span>
       <LoadingComponent />
     </div>
   ) : isFound ? (
-    <main>
+    <main className={`${isDark ? "dark" : ""}`}>
       <div className="country-details-container">
-        <span onClick={() => history.back()} className="back-button">
+        <span onClick={() => history.back()} className={`back-button ${isDark ? "dark" : ""}`}>
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
         <div className="country-details">
@@ -142,7 +143,7 @@ export default function CountryDetail() {
     </main>
   ) : (
     <div className="country-details-container">
-      <span onClick={routeChange} className="back-button">
+      <span onClick={routeChange} className={`back-button ${isDark ? "dark" : ""}`}>
         <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
       </span>
       <ErrorComponent />
