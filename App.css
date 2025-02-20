@@ -75,7 +75,7 @@ a {
     max-width: 1200px;
     margin-top: 16px;
     display: flex;
-    gap: 64px;
+    gap: 30px;
     flex-wrap: wrap;
     margin-inline: auto;
     justify-content: space-between;

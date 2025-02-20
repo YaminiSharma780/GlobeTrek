@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import "../styles/ErrorComponent.css";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { useNavigate } from "react-router";
+import { useMyTheme } from "../hooks/useMyTheme";
 
 export default function ErrorComponent() {
-  const [isDark] = useContext(ThemeContext);
+  const [isDark] = useMyTheme();
   const navigate = useNavigate();
   const routeChange = () => {
     navigate("/");

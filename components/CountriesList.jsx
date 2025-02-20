@@ -28,7 +28,11 @@ export default function CountriesList({ query }) {
   ) : isFound ? (
     <div className="countries-container">
       {data
-        .filter((country) => country.name.common.toLowerCase().includes(query))
+        .filter(
+          (country) =>
+            country.name.common.toLowerCase().includes(query) ||
+            country.region.toLowerCase().includes(query)
+        )
         .map((country) => {
           return (
             <CountryCard

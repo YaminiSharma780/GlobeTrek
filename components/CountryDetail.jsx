@@ -25,17 +25,17 @@ export default function CountryDetail() {
 
   function updateCountryData(data) {
     setCountryData({
-      name: data.name.common,
-      nativeName: Object.values(data.name.nativeName)[0].common,
+      name: data.name.common || data.name,
+      nativeName: Object.values(data.name.nativeName || {})[0]?.common,
       population: data.population.toLocaleString("en-IN"),
       region: data.region,
       subregion: data.subregion,
       capital: data.capital,
       tld: data.tld,
-      currencies: Object.values(data.currencies)
+      currencies: Object.values(data.currencies || {})
         .map((currency) => currency.name)
         .join(", "),
-      languages: Object.values(data.languages)[0],
+      languages: Object.values(data.languages || {}).join(", "),
       borders: data.borders || [],
       flagSrc: data.flags.svg,
       flagAlt: data.flags.alt,
@@ -79,15 +79,7 @@ export default function CountryDetail() {
       });
   }, [countryName]);
   return isLoading ? (
-    <div className="country-details-container">
-      <span
-        onClick={() => history.back()}
-        className={`back-button ${isDark ? "dark" : ""}`}
-      >
-        <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
-      </span>
-      <LoadingComponent />
-    </div>
+    <LoadingComponent />
   ) : isFound ? (
     <main className={`${isDark ? "dark" : ""}`}>
       <div className="country-details-container">
@@ -137,7 +129,7 @@ export default function CountryDetail() {
             </div>
             {Array.isArray(countryData.borders) &&
               countryData.borders.length > 0 && (
-                <div className="border-countries">
+                <div className={`border-countries ${isDark ? "dark" : ""}`}>
                   <b>Border Countries: </b>&nbsp;
                   {countryData.borders.map((border) => (
                     <Link key={border} to={`/${border}`}>
@@ -152,16 +144,5 @@ export default function CountryDetail() {
     </main>
   ) : (
     <ErrorComponent />
-    // <main className={`${isDark ? "dark" : ""}`}>
-    //   <div className="country-details-container">
-    //     <span
-    //       onClick={routeChange}
-    //       className={`back-button ${isDark ? "dark" : ""}`}
-    //     >
-    //       <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
-    //     </span>
-    //     <ErrorComponent />
-    //   </div>
-    // </main>
   );
 }
