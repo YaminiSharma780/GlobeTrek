@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import {
   Link,
   useLocation,
@@ -9,14 +9,10 @@ import {
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useMyTheme } from "../hooks/useMyTheme";
 
 export default function CountryDetail() {
-  const [isDark] = useContext(ThemeContext);
-  // const navigate = useNavigate();
-  // const routeChange = () => {
-  //   navigate("/");
-  // };
+  const [isDark] = useMyTheme();
 
   const params = useParams();
   const countryName = params.country;

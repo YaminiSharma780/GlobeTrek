@@ -1,12 +1,12 @@
-import { useContext, useState, useEffect } from "react";
+import { useState } from "react";
 import "../App.css";
 import CountriesList from "./CountriesList";
 import SearchBar from "./SearchBar";
 import SelectRegion from "./SelectRegion";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useMyTheme } from "../hooks/useMyTheme";
 
 export default function Home() {
-  const [isDark] = useContext(ThemeContext);
+  const [isDark] = useMyTheme();
   const [query, setQuery] = useState("");
 
   return (
