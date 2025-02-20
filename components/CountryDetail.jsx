@@ -1,12 +1,22 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from "react-router-dom";
 import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
 import { ThemeContext } from "../contexts/ThemeContext";
+import { useWindowHeightAndWidth } from "../hooks/useWindowHeightAndWidth/useWindowHeightAndWidth";
 
 export default function CountryDetail() {
-  const [isDark] = useContext(ThemeContext)
+  const [isDark] = useContext(ThemeContext);
+
+  const windowSize = useWindowHeightAndWidth();
+
   const navigate = useNavigate();
   const routeChange = () => {
     navigate("/");
@@ -78,15 +88,26 @@ export default function CountryDetail() {
   }, [countryName]);
   return isLoading ? (
     <div className="country-details-container">
-      <span onClick={() => history.back()} className={`back-button ${isDark ? "dark" : ""}`}>
+      <span
+        onClick={() => history.back()}
+        className={`back-button ${isDark ? "dark" : ""}`}
+      >
         <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
       </span>
       <LoadingComponent />
     </div>
   ) : isFound ? (
     <main className={`${isDark ? "dark" : ""}`}>
+      <div>
+        <h1>
+          Height: {windowSize.height} X Width: {windowSize.width}
+        </h1>
+      </div>
       <div className="country-details-container">
-        <span onClick={() => history.back()} className={`back-button ${isDark ? "dark" : ""}`}>
+        <span
+          onClick={() => history.back()}
+          className={`back-button ${isDark ? "dark" : ""}`}
+        >
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
         <div className="country-details">
@@ -144,7 +165,10 @@ export default function CountryDetail() {
     </main>
   ) : (
     <div className="country-details-container">
-      <span onClick={routeChange} className={`back-button ${isDark ? "dark" : ""}`}>
+      <span
+        onClick={routeChange}
+        className={`back-button ${isDark ? "dark" : ""}`}
+      >
         <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
       </span>
       <ErrorComponent />
