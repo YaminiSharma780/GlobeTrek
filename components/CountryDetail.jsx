@@ -90,7 +90,7 @@ export default function CountryDetail() {
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
         <div className="country-details">
-          <img src={countryData.flagSrc} alt={`${countryData.flagAlt} flag`} />
+          <img src={countryData.flagSrc} alt={`${countryData.name} Flag`} />
           <div className="details-text-container">
             <h1>{countryData.name}</h1>
             <div className="details-text">

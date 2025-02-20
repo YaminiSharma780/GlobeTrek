@@ -28,7 +28,7 @@
 }
 
 .country-details img {
-    width: 400px;
+    width: 450px;
     border: none;
     height: 300px;
     object-fit: fill;
@@ -80,9 +80,29 @@
     }
 
     .country-details img {
-        width: 400px;
+        width: 450px;
         border: none;
         height: 300px;
+        object-fit: contain;
+    }
+
+}
+@media(max-width: 510px) {
+    .country-details {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 32px;
+        gap: 16px;
+    }
+
+    .details-text {
+        max-height: unset;
+    }
+
+    .country-details img {
+        width: 80%;
+        border: none;
+        height: 70%;
         object-fit: contain;
     }
 
