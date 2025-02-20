@@ -14,8 +14,8 @@ main,
 header {
     background-color: var(--background-color);
     color: var(--text-color);
-    --shimmer-color-one: #eee;
-    --shimmer-color-two: #fafafa;
+    --shimmer-color-one: #e8e3e3;
+    --shimmer-color-two: white;
 }
 
 main.dark,
@@ -90,23 +90,106 @@ a {
     box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease-in-out;
     background-color: var(--elements-color);
+    /* background-color: var(--shimmer-color-two); */
 }
 
 .shimmer-card {
     height: 364px;
-    border: 1px solid rgb(172, 169, 169);
+    position: relative;
+    border: 1px solid rgb(207, 203, 203);
     pointer-events: none;
-    background: linear-gradient(-45deg, var(--shimmer-color-one) 40%, var(--shimmer-color-two) 50%, var(--shimmer-color-one) 60%);
-    background-size: 300%;
+    background: linear-gradient(-45deg, var(--shimmer-color-two) 40%, var(--shimmer-color-one) 50%, var(--shimmer-color-two) 60%);
+    background-size: 400%;
     background-position-x: 100%;
-    animation: shimmer 0.5s infinite linear;
+    animation: shimmer 1.5s infinite linear;
+}
+
+.shimmer-img {
+    background-color: hsl(220, 3%, 78%);
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.shimmer-img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, var(--shimmer-color-one) 40%, var(--shimmer-color-two) 50%, var(--shimmer-color-one) 60%);
+    background-size: 400%;
+    background-position-x: 100%;
+    animation: shimmer 1s infinite linear;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.shimmer-heading {
+    background-color: hsl(220, 3%, 78%);
+    width: 220px;
+    height: 25px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.shimmer-heading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, var(--shimmer-color-one) 40%, var(--shimmer-color-two) 50%, var(--shimmer-color-one) 60%);
+    background-size: 400%;
+    background-position-x: 100%;
+    animation: shimmer 1s infinite linear;
+    z-index: 1;
+    opacity: 0.5;
+    border-radius: 20px;
+}
+
+.shimmer-text {
+    background-color: hsl(220, 3%, 78%);
+    width: 220px;
+    height: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.shimmer-text::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, var(--shimmer-color-one) 40%, var(--shimmer-color-two) 50%, var(--shimmer-color-one) 60%);
+    background-size: 400%;
+    background-position-x: 100%;
+    animation: shimmer 1s infinite linear;
+    z-index: 1;
+    opacity: 0.5;
+    border-radius: 10px;
 }
 
 @keyframes shimmer {
-    to {
-        background-position-x: 0%
+    100% {
+        background-position-x: -100%;
     }
 }
+
 
 .country-card:hover {
     transform: scale(1.03);
