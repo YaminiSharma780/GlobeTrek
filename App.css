@@ -25,7 +25,7 @@ header.dark {
     --elements-color: hsl(209, 23%, 22%);
     --shimmer-color-one: hsl(209, 23%, 22%);
     --shimmer-color-two: hsl(207, 26%, 17%);
-}   
+}
 
 main {
     padding: 24px;
@@ -38,6 +38,7 @@ a {
 }
 
 .header-container {
+    height: 72px;
     box-shadow: 0 2px 4px 0px rgba(0, 0, 0, 0.1);
     padding-inline: 24px;
     background-color: var(--elements-color);
@@ -197,4 +198,7 @@ a {
         flex-direction: column;
     }
 
+    .header-content {
+        padding-top: 11px;
+    }
 }

@@ -1,6 +1,15 @@
 .error-component-div {
     display: grid;
     margin-inline: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: black;    
+}
+
+.error-component-div.dark {
+    display: grid;
+    margin-inline: 100px;
+    color: white;
 }
 
 .error-div {

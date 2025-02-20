@@ -10,17 +10,13 @@ import "../styles/CountryDetail.css";
 import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { useWindowHeightAndWidth } from "../hooks/useWindowHeightAndWidth/useWindowHeightAndWidth";
 
 export default function CountryDetail() {
   const [isDark] = useContext(ThemeContext);
-
-  const windowSize = useWindowHeightAndWidth();
-
-  const navigate = useNavigate();
-  const routeChange = () => {
-    navigate("/");
-  };
+  // const navigate = useNavigate();
+  // const routeChange = () => {
+  //   navigate("/");
+  // };
 
   const params = useParams();
   const countryName = params.country;
@@ -98,11 +94,6 @@ export default function CountryDetail() {
     </div>
   ) : isFound ? (
     <main className={`${isDark ? "dark" : ""}`}>
-      <div>
-        <h1>
-          Height: {windowSize.height} X Width: {windowSize.width}
-        </h1>
-      </div>
       <div className="country-details-container">
         <span
           onClick={() => history.back()}
@@ -164,14 +155,17 @@ export default function CountryDetail() {
       </div>
     </main>
   ) : (
-    <div className="country-details-container">
-      <span
-        onClick={routeChange}
-        className={`back-button ${isDark ? "dark" : ""}`}
-      >
-        <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
-      </span>
-      <ErrorComponent />
-    </div>
+    <ErrorComponent />
+    // <main className={`${isDark ? "dark" : ""}`}>
+    //   <div className="country-details-container">
+    //     <span
+    //       onClick={routeChange}
+    //       className={`back-button ${isDark ? "dark" : ""}`}
+    //     >
+    //       <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
+    //     </span>
+    //     <ErrorComponent />
+    //   </div>
+    // </main>
   );
 }
